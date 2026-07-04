@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "LINKUP"
+version = "1.0.0"
+id = "artifacts/linkup"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21238
+
+[services.development]
+run = "pnpm --filter @workspace/linkup run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/linkup", "run", "build" ]
+publicDir = "artifacts/linkup/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21238"
+BASE_PATH = "/"
